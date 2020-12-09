@@ -97,11 +97,12 @@ public class HomeController {
         if (!doesUsernameExist) {
             logger.info("Username is already taken");
             model.addAttribute("userNameTaken", true);
+            return "signup";
         } else {
             logger.info("User successfully saved");
             model.addAttribute("isSuccess", true);
         }
-        return "signup";
+        return "redirect:/login";
     }
 
     @GetMapping("/result")
