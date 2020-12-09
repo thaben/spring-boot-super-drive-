@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.udacity.jwdnd.course1.cloudstorage.dtos.MyUserDTO;
 import com.udacity.jwdnd.course1.cloudstorage.dtos.mappers.MyUserDTOMapper;
@@ -78,6 +79,7 @@ public class HomeController {
 
         data.put("userNameTaken", false);
         data.put("isSuccess", false);
+        data.put("registerSuccess", false);
 
         model.addAllAttributes(data);
 
@@ -88,7 +90,8 @@ public class HomeController {
     public String signUpSubmit(
             @ModelAttribute("user") MyUserDTO userDTO,
             Model model,
-            HttpSession httpSession) {
+            HttpSession httpSession,
+            RedirectAttributes redirectAttrs) {
         logger.info("Received user info from Signup Form: {} ", userDTO);
 
         MyUser user = myUserDTOMapper.dtoToDomain(userDTO);
@@ -100,7 +103,7 @@ public class HomeController {
             return "signup";
         } else {
             logger.info("User successfully saved");
-            model.addAttribute("isSuccess", true);
+            redirectAttrs.addFlashAttribute("registerSuccess", true);
         }
         return "redirect:/login";
     }

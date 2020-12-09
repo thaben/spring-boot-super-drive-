@@ -17,6 +17,10 @@
             <div class="alert alert-dark" th:if="${param.logout}">
                 You have been logged out
             </div>
+            <div class="alert alert-success fill-parent"  th:if="${registerSuccess}">
+                <h1 class="display-5">Success</h1>
+                <span>Succesfully registered</span>
+            </div>
             <form
                 th:object="${user}"
                 th:action="@{/login}"
